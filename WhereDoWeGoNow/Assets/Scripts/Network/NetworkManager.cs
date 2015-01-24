@@ -6,11 +6,13 @@ public class NetworkManager : MonoBehaviour
     private const string typeName = "WhereDoWeGoNow";
     private const string gameName = "RoomName";
 
+    private GameManager m_gameManager;
     private HostData[] hostList;
 
     public void StartServer()
     {
         Network.InitializeServer(4, 25000, !Network.HavePublicAddress());
+
         MasterServer.RegisterHost(typeName, gameName);
     }
 
@@ -18,35 +20,39 @@ public class NetworkManager : MonoBehaviour
     {
         Network.Connect(hostData);
     }
-
     private void RefreshHostList()
     {
         MasterServer.RequestHostList(typeName);
     }
 
     #region MonoBehaviour Implementation
+    protected void Awake()
+    {
+        var go = GameObject.FindGameObjectWithTag("GameManager");
+        if (go)
+        {
+            m_gameManager = go.GetComponent<GameManager>();
+        }
+        DontDestroyOnLoad(this);
+    }
     protected void OnServerInitialized()
     {
         Debug.Log("Server Initialized");
     }
-
     protected void OnMasterServerEvent(MasterServerEvent msEvent)
     {
         if (msEvent == MasterServerEvent.HostListReceived)
             hostList = MasterServer.PollHostList();
     }
-
     protected void OnConnectedToServer()
     {
         Debug.Log("Server Joined");
     }
-    
-
     protected void OnGUI()
     {
         if (!Network.isClient && !Network.isServer)
         {
-            if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
+            if (GUI.Button(new Rect(100, 100, 250, 100), "Create"))
                 StartServer();
 
             if (GUI.Button(new Rect(100, 250, 250, 100), "Refresh Hosts"))
@@ -61,6 +67,12 @@ public class NetworkManager : MonoBehaviour
                 }
             }
         }
+        else if (Network.isServer)
+        {
+            if (GUI.Button(new Rect(100, 100, 250, 100), "Start"))
+                m_gameManager.LaunchGame();
+        }
+
     }
     #endregion
 }
