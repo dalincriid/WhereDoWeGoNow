@@ -64,10 +64,12 @@ public class Labyrinth : MonoBehaviour
     {
         Vector3 scale = this.wall.transform.localScale;
         GameObject floor = Instantiate(this.floor) as GameObject;
-        Vector3 size = new Vector3(this.width * scale.x, 1, this.height * scale.z);
+        Vector3 size = new Vector3(this.width, 1, this.height);
 
-        if (floor)
-            floor.transform.localScale = size;
+        if (!floor)
+            return;
+        floor.transform.position = Vector3.zero;
+        floor.transform.localScale = size;
     }
 
     private void DigRoom(Vector2 location, int breadth, int length, int horizontal, int vertical)
@@ -180,6 +182,7 @@ public class Labyrinth : MonoBehaviour
 
     public List<Vector3> SitePlayer(int players)
     {
+        Vector3 spawn = Vector3.zero;
         System.Random random = new System.Random();
         List<Vector3> spawers = new List<Vector3>();
         Vector3 scale = this.wall.transform.localScale;
@@ -190,13 +193,14 @@ public class Labyrinth : MonoBehaviour
             int breadth = 0;
             int spawner = 1;
 
-            while (spawner == 1)
+            while (spawner == 1 || spawn == Vector3.zero || spawers.Contains(spawn))
             {
                 breadth = random.Next(this.width);
                 length = random.Next(this.height);
                 spawner = this.maze[breadth, length];
+                spawn = new Vector3(breadth * scale.x, 2, length * scale.z);
             }
-            spawers.Add(new Vector3(breadth * scale.x, 2, length * scale.y));
+            spawers.Add(spawn);
         }
         return spawers;
     }
@@ -210,6 +214,4 @@ public class Labyrinth : MonoBehaviour
         this.Build();
     }
     #endregion
-
-	
 }

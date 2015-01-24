@@ -5,10 +5,12 @@ public class PlayerSync : MonoBehaviour
 {
 	public GameObject WavePrefab;
     public int MessageCount = 5;
+    public float coolDownDuration = 5.0f;
 
     private int m_remainingMessages;
     private bool m_typingMessage = false;
     private string m_message = "";
+    private float nextWave;
 
     private GameManager m_gameManager;
 
@@ -45,9 +47,10 @@ public class PlayerSync : MonoBehaviour
             GetComponentInChildren<Camera>().enabled = true;
             GetComponentInChildren<Light>().enabled = true;
         }
-        if (Input.GetKeyDown(KeyCode.E) && !m_typingMessage)
+        if (Input.GetKeyDown(KeyCode.E) && Time.time > nextWave && !m_typingMessage)
 		{
 			this.Halo(this.transform.position);
+            nextWave = Time.time + coolDownDuration;
 		}
         else if (Input.GetKeyDown(KeyCode.Y) && !m_typingMessage)
         {
