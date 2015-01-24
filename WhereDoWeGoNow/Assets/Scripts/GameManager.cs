@@ -9,11 +9,14 @@ public class GameManager : MonoBehaviour
     private Dictionary<NetworkPlayer, bool> m_players;
     #endregion
 
+    public float TimeToEraseMessage = 10.0f;
     public GameObject PlayerPrefab;
 
     private GameObject m_createOrJoin;
     private GameObject m_startGame;
-    private GameObject m_ui;
+
+    private float m_timeBeforeErase = .0f;
+    private string m_message = "";
 
     private bool m_started = false;
     private bool m_firstPlayer = true;
@@ -28,7 +31,6 @@ public class GameManager : MonoBehaviour
 
         m_createOrJoin = GameObject.FindGameObjectWithTag("CreateOrJoinHUD");
         m_startGame = GameObject.FindGameObjectWithTag("StartGameHUD");
-        m_ui = GameObject.FindGameObjectWithTag("GameController");
 
         var go = GameObject.FindGameObjectWithTag("NetworkManager");
         m_networkManager = go.GetComponent<NetworkManager>();
@@ -36,6 +38,21 @@ public class GameManager : MonoBehaviour
         m_labyrinth = GetComponent<Labyrinth>();
 
         m_startGame.SetActive(false);
+    }
+    protected void Update()
+    {
+        m_timeBeforeErase += Time.deltaTime;
+        if (m_timeBeforeErase >= TimeToEraseMessage)
+        {
+            m_message = "";
+        }
+    }
+    protected void OnGUI()
+    {
+        if (m_timeBeforeErase < TimeToEraseMessage && m_message != "")
+        {
+            GUI.Label(new Rect(0, Screen.height - 25, Screen.width - 100, 25), "You hear wispering: \"" + m_message + "\"");
+        }
     }
 
     #region Server methods
@@ -74,6 +91,15 @@ public class GameManager : MonoBehaviour
 
     #region Network Callbacks
     [RPC]
+    public void PostMessage(string message)
+    {
+        m_message = message;
+        m_timeBeforeErase = .0f;
+        if (networkView.isMine)
+            networkView.RPC("PostMessage", RPCMode.OthersBuffered, message);
+    }
+
+    [RPC]
     private void LaunchGame(NetworkPlayer player)
     {
         if (Network.isServer)
@@ -111,12 +137,19 @@ public class GameManager : MonoBehaviour
     {
         if (Network.isClient)
         {
-            m_ui.SetActive(false);
             m_player = Network.Instantiate(PlayerPrefab, spawnPoint, Quaternion.identity, 0) as GameObject;
 
             Camera[] cameras = Resources.FindObjectsOfTypeAll<Camera>();
             foreach (var cam in cameras)
                 cam.enabled = false;
+
+            Light[] lights = Resources.FindObjectsOfTypeAll<Light>();
+            foreach (var light in lights)
+                light.enabled = false;
+
+            AudioListener[] listeners = Resources.FindObjectsOfTypeAll<AudioListener>();
+            foreach (var listener in listeners)
+                listener.enabled = false;
         }
     }
     #endregion

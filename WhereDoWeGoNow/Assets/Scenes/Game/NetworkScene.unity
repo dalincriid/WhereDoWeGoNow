@@ -185,7 +185,7 @@ Transform:
   - {fileID: 367860135}
   - {fileID: 1354354951}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!54 &98257160
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -949,7 +949,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 288
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1056,7 +1056,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1354354951}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lobby
   m_TagString: StartGameHUD
   m_Icon: {fileID: 0}
@@ -1087,7 +1087,7 @@ GameObject:
   - 114: {fileID: 1558499033}
   - 114: {fileID: 1558499035}
   - 148: {fileID: 1558499032}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameManager
   m_TagString: GameManager
   m_Icon: {fileID: 0}
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08822d23498aad4459462a5db5a6a200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TimeToEraseMessage: 10
   PlayerPrefab: {fileID: 100004, guid: b418abe53fa96224ea44d0dcf904d8cb, type: 2}
 --- !u!4 &1558499034
 Transform:
@@ -1126,10 +1127,10 @@ Transform:
   m_GameObject: {fileID: 1558499031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .00527704507, y: .00527704507, z: .00527704507}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1558499035
 MonoBehaviour:
   m_ObjectHideFlags: 0
