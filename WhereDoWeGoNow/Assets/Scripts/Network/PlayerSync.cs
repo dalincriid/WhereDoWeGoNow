@@ -22,8 +22,8 @@ public class PlayerSync : MonoBehaviour
 
 	protected void Update()
 	{
-        if (networkView.isMine && !camera.enabled)
-            camera.enabled = true;
+        if (networkView.isMine && !GetComponentInChildren<Camera>().enabled)
+            GetComponentInChildren<Camera>().enabled = true;
 		if (Input.GetKeyDown(KeyCode.E))
 		{
 			this.Halo(this.transform.position);
