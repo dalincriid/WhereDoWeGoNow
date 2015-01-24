@@ -179,11 +179,7 @@ Transform:
   m_GameObject: {fileID: 98257158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD:WhereDoWeGoNow/Assets/Scenes/NetworkScene.unity
   m_LocalScale: {x: .00527704507, y: .00527704507, z: .00527704507}
-=======
-  m_LocalScale: {x: .0045454544, y: .0045454544, z: .0045454544}
->>>>>>> Ca m'venere:WhereDoWeGoNow/Assets/Scenes/Game/NetworkScene.unity
   m_Children:
   - {fileID: 664875571}
   - {fileID: 367860135}
