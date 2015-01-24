@@ -22,7 +22,9 @@ public class PlayerSync : MonoBehaviour
 
 	protected void Update()
 	{
-        if (networkView.isMine && !GetComponentInChildren<Camera>().enabled)
+        if (!networkView.isMine)
+            return ;
+        if (!GetComponentInChildren<Camera>().enabled)
             GetComponentInChildren<Camera>().enabled = true;
 		if (Input.GetKeyDown(KeyCode.E))
 		{
