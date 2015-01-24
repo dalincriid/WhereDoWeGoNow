@@ -8,11 +8,7 @@ function Awake () {
 // Update is called once per frame
 function Update () {
     //if (!networkView.isMine)
-<<<<<<< HEAD
-        //return;
-=======
     //    return;
->>>>>>> 2020a39b78b7fbd4d5ca3008d1f2ed1c5dfde1cb
 	// Get the input vector from keyboard or analog stick
 	var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 	
