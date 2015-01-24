@@ -86,12 +86,10 @@ public class PlayerSync : MonoBehaviour
 	[RPC]
 	private void Halo(Vector3 pos)
 	{
-		if (!networkView.isMine)
+		var wave = GameObject.Instantiate(this.WavePrefab, pos, Quaternion.identity) as GameObject;
+		if (networkView.isMine)
 		{
-			var wave = GameObject.Instantiate(this.WavePrefab, pos, Quaternion.identity);
-		}
-		else
-		{
+			wave.renderer.enabled = false;
 			networkView.RPC("Halo", RPCMode.OthersBuffered, pos);
 		}
 	}
