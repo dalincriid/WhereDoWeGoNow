@@ -11,6 +11,7 @@ public class Labyrinth : MonoBehaviour
         NORTH,
         SOUTH
     }
+
     #region VARIABLES
     [SerializeField]
     private int width = 0;
