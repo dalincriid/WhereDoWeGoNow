@@ -4,6 +4,9 @@ using System.Collections;
 public class PlayerSync : MonoBehaviour
 {
 	public GameObject WavePrefab;
+    public float coolDownDuration = 5.0f;
+
+    private float nextWave;
 
     protected void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
     {
@@ -26,9 +29,10 @@ public class PlayerSync : MonoBehaviour
             return ;
         if (!GetComponentInChildren<Camera>().enabled)
             GetComponentInChildren<Camera>().enabled = true;
-		if (Input.GetKeyDown(KeyCode.E))
+		if (Input.GetKeyDown(KeyCode.E) && Time.time > nextWave)
 		{
 			this.Halo(this.transform.position);
+            nextWave = Time.time + coolDownDuration;
 		}
 	}
 
