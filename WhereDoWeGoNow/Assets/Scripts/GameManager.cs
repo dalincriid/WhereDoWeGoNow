@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
     {
         m_players.Add(player, false);
     }
+    public void SendMessage(string message)
+    {
+        PostMessage(message);
+        networkView.RPC("PostMessage", RPCMode.OthersBuffered, message);
+    }
     #endregion
 
     #region NetworkCallbacks
@@ -91,12 +96,10 @@ public class GameManager : MonoBehaviour
 
     #region Network Callbacks
     [RPC]
-    public void PostMessage(string message)
+    private void PostMessage(string message)
     {
         m_message = message;
         m_timeBeforeErase = .0f;
-        if (networkView.isMine)
-            networkView.RPC("PostMessage", RPCMode.OthersBuffered, message);
     }
 
     [RPC]
