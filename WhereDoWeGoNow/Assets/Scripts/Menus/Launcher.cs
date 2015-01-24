@@ -34,7 +34,7 @@ namespace Menus
 
         public void MoveInto(Stage stage)
         {
-            var scenes = Resources.FindObjectsOfTypeAll(typeof(Scene)) as Scene[];
+            Scene[] scenes = Resources.FindObjectsOfTypeAll(typeof(Scene)) as Scene[];
 
             foreach (Scene scene in scenes)
                 if (scene.stage == stage)
