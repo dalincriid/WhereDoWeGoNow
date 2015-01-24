@@ -26,6 +26,18 @@ namespace Menus
         {
             this.launcher.stage = Launcher.Stage.MAIN;
         }
+
+        private void DisplayEscape()
+        {
+            if (GUI.Button(new Rect(50, 950, 200, 100), "Back", this.skin.button))
+                this.launcher.MoveInto(Launcher.Stage.MAIN);
+        }
+
+        override protected void Display()
+        {
+            base.Display();
+            this.DisplayEscape();
+        }
         #endregion
 
         void Start()

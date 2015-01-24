@@ -82,6 +82,16 @@ namespace Menus
             this.datas["AntiAliasing"] = "x " + this.aliasingFilters[this.antiAliasing].ToString();
         }
 
+        private void DisplayEscape()
+        {
+            float screenWidth = this.manager.defaultResolution.x;
+
+            if (GUI.Button(new Rect(50, 950, 200, 100), "Back", this.skin.button))
+                this.launcher.MoveInto(Launcher.Stage.OPTIONS);
+            if (GUI.Button(new Rect(screenWidth - 50, 950, 200, 100), "Apply", this.skin.button))
+                this.Execute();
+        }
+
         private void DisplayData()
         {
             Vector2 size = new Vector2(500, 600);
@@ -120,6 +130,7 @@ namespace Menus
         {
             base.Display();
             this.DisplayData();
+            this.DisplayEscape();
         }
 
         override public void Reload()

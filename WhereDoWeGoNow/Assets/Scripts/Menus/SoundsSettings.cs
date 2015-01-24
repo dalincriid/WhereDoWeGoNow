@@ -32,6 +32,16 @@ namespace Menus
             this.music = Mathf.Clamp(this.music + value, 0.0f, 1.0f);
         }
 
+        private void DisplayEscape()
+        {
+            float screenWidth = this.manager.defaultResolution.x;
+
+            if (GUI.Button(new Rect(50, 950, 200, 100), "Back", this.skin.button))
+                this.launcher.MoveInto(Launcher.Stage.OPTIONS);
+            if (GUI.Button(new Rect(screenWidth - 50, 950, 200, 100), "Apply", this.skin.button))
+                this.launcher.MoveInto(Launcher.Stage.MAIN);
+        }
+
         private void DisplayData()
         {
             Vector2 size = new Vector2(500, 60);
@@ -75,6 +85,7 @@ namespace Menus
         {
             base.Display();
             this.DisplayData();
+            this.DisplayEscape();
         }
 
         override public void Reload()
