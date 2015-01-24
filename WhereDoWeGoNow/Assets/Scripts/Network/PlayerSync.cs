@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerSync : MonoBehaviour
 {
+	public GameObject WavePrefab;
+
     protected void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
     {
         Vector3 syncPosition = Vector3.zero;
@@ -20,16 +22,18 @@ public class PlayerSync : MonoBehaviour
 
 	protected void Update()
 	{
-		//Halo(Vector3.zero);
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			this.Halo(this.transform.position);
+		}
 	}
 
 	[RPC]
 	private void Halo(Vector3 pos)
 	{
-		//instantiate sound
 		if (!networkView.isMine)
 		{
-			//instantiate sphere
+			var wave = GameObject.Instantiate(this.WavePrefab, pos, Quaternion.identity);
 		}
 		else
 		{
