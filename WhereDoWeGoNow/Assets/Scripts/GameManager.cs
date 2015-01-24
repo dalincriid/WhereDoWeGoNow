@@ -117,8 +117,6 @@ public class GameManager : MonoBehaviour
             Camera[] cameras = GameObject.FindObjectsOfType<Camera>();
             foreach (var cam in cameras)
                 cam.enabled = false;
-
-            m_player.GetComponentInChildren<Camera>().enabled = true;
         }
     }
     #endregion
