@@ -22,8 +22,6 @@ public class Labyrinth : MonoBehaviour
     [SerializeField]
     private GameObject floor = null;
 
-    public GameObject TMP = null;
-
     private int[,] maze;
     private int roomRate = 0;
     private System.Random random = null;
