@@ -16,6 +16,8 @@ public class GlowingSphere : MonoBehaviour {
 		v3Scale = new Vector3(maxScale, 0.5f, maxScale);
         this.renderer.material.color = Color.red;
 		this.audioSource = this.GetComponentInChildren<AudioSource>();
+		this.audioSource.loop = true;
+		this.audioSource.Play();
 	}
 	
 	// Update is called once per frame
