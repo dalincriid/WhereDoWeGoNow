@@ -69,7 +69,7 @@ public class PlayerSync : MonoBehaviour
             {
                 if (m_message != "" && 0 < MessageCount)
                 {
-                    m_gameManager.PostMessage(m_message);
+                    m_gameManager.SendMessage(m_message);
                     m_message = "";
                     MessageCount--;
                 }
