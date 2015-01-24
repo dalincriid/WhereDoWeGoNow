@@ -9,96 +9,105 @@ namespace Menus
 
         #region VARIABLES
         [SerializeField]
+        protected GUISkin skin = null;
+        [SerializeField]
         protected string title = null;
-        [SerializeField]
-        protected Launcher.Stage stage = null;
-        [SerializeField]
-        protected Texture2D backGround = null;
+
+        public Launcher.Stage stage;
+        public Texture2D backGround = null;
 
         protected int button = 0;
+        protected string[] buttons = null;
+        protected Action[] actions = null;
         protected Launcher launcher = null;
         protected Manager.OverLord manager = null;
+
         #endregion
 
         #region PROPERTIES
         #endregion
 
         #region FUNCTIONS
-
-        protected void CheckHoverButton()
+        protected void Select(int index)
         {
-            for (int index = 0; index < this.buttons.Count; index++)
-            {
-                if (!this.buttons[index].button.isHovered)
-                    continue;
-                this.Select(index);
-                break;
-            }
+            int limit = this.buttons.Length - 1;
+
+            if (index > limit)
+                this.button = 0;
+            else if (index < 0)
+                this.button = limit;
+            else
+                this.button = index;
         }
 
-        protected void AddButtonInList(Menus.Button button, Action function)
+        virtual protected void Execute()
         {
-            Button entity = new Button();
-
-            entity.button = button;
-            entity.function = function;
-            this.buttons.Add(entity);
-        }
-
-        protected void Select(int next)
-        {
-            next = this.Clamp(next);
-
-            this.buttons[this.index].button.applyDefaultColor();
-            this.buttons[next].button.applySelectionColor();
-            this.index = next;
-        }
-
-        virtual protected void Execute(Button button)
-        {
-            if (button.function != null)
-                button.function();
+            this.actions[this.button]();
         }
 
         abstract protected void Rewind();
 
-        virtual public void Build()
+        
+
+        private void DisplayTitle()
         {
-            this.buttons = new List<Button>();
-            this.launcher = GameObject.FindGameObjectWithTag(Tags.launcher).GetComponent<Launcher>();
+            Vector2 resolution = this.manager.defaultResolution;
+            Vector2 size = this.skin.GetStyle("Title").CalcSize(new GUIContent(this.title));
+
+            GUI.Label(new Rect((resolution.x / 2) - (size.x / 2), 50, size.x, size.y), this.title, this.skin.GetStyle("Title"));
         }
 
-        virtual public void Initialize()
+        virtual protected void DisplayButtons()
         {
-            foreach (Button button in this.buttons)
-                button.button.applyDefaultColor();
-            this.Select(0);
+            Vector2 size = new Vector2(500, 600);
+            Vector2 resolution = this.manager.defaultResolution;
+            Rect position = new Rect((resolution.x / 2) - (size.x / 2), (resolution.y / 2) - (size.y / 2) + 100, size.x, size.y);
+
+            int selection = GUI.SelectionGrid(position, this.button, this.buttons, 1, this.skin.button);
+            if (selection == this.button)
+                return;
+            this.button = selection;
+            this.Execute();
         }
 
-        virtual public void ManageInputs()
+        virtual protected void Display()
+        {
+            this.DisplayTitle();
+            this.DisplayButtons();
+        }
+
+        virtual public void Reload()
+        {
+        }
+
+        virtual protected void ManageInputs()
         {
             if (Input.GetButtonDown("Accept"))
-                this.Execute(this.buttons[this.index]);
+                this.Execute();
             else if (Input.GetButtonDown("Back"))
                 this.Rewind();
             else if (Input.GetButtonDown("Next"))
-                this.Select(this.index + 1);
+                this.Select(this.button + 1);
             else if (Input.GetButtonDown("Previous"))
-                this.Select(this.index - 1);
+                this.Select(this.button - 1);
         }
-
-        virtual protected void Display();
         #endregion
 
-        void Awake()
+        virtual protected void Awake()
         {
             this.button = 0;
+            this.launcher = GameObject.FindGameObjectWithTag(Tags.launcher).GetComponent<Launcher>();
             this.manager = GameObject.FindGameObjectWithTag(Tags.manager).GetComponent<Manager.OverLord>();
+        }
+
+        void Update()
+        {
+            this.ManageInputs();
         }
 
         void OnGUI()
         {
-            if (this.launcher.stage != Launcher.Stage.MAIN)
+            if (this.launcher.stage != this.stage)
                 return;
 
             Matrix4x4 restoreMatrix = GUI.matrix;

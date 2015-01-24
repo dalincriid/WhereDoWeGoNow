@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Menus
 {
@@ -11,10 +12,35 @@ namespace Menus
         #endregion
 
         #region FUNCTIONS
-        override protected void Display()
+        private void Play()
         {
+        }
 
+        private void Option()
+        {
+            this.launcher.MoveInto(Launcher.Stage.OPTIONS);
+        }
+
+        private void Credit()
+        {
+            Fade.LoadLevel("Credits", 2.0f, 2.0f, Color.black);
+        }
+
+        private void Quit()
+        {
+            Application.Quit();
+        }
+
+        override protected void Rewind()
+        {
         }
         #endregion
+
+        void Start()
+        {
+            this.stage = Launcher.Stage.MAIN;
+            this.buttons = new string[] { "Play", "Options", "Credits", "Quits" };
+            this.actions = new Action[] { this.Play, this.Option, this.Credit, this.Quit };
+        }
     }
 }

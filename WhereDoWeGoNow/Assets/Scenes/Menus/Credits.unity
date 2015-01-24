@@ -82,7 +82,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 103263027}
-  - 114: {fileID: 103263029}
+  - 114: {fileID: 103263028}
   m_Layer: 0
   m_Name: Credits
   m_TagString: Untagged
@@ -107,7 +107,7 @@ Transform:
   - {fileID: 399333555}
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &103263029
+--- !u!114 &103263028
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 103263026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1af530d05dc8a6349a24e1b70dc2392c, type: 3}
+  m_Script: {fileID: 11500000, guid: 78632ba53154ca64194092af3578b64f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flowSpeed: 2
