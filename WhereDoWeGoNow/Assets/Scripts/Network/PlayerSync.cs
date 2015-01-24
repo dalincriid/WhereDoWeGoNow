@@ -17,4 +17,24 @@ public class PlayerSync : MonoBehaviour
             rigidbody.position = syncPosition;
         }
     }
+
+	protected void Update()
+	{
+		//Halo(Vector3.zero);
+	}
+
+	[RPC]
+	private void Halo(Vector3 pos)
+	{
+		//instantiate sound
+		if (!networkView.isMine)
+		{
+			//instantiate sphere
+		}
+		else
+		{
+			networkView.RPC("Halo", RPCMode.OthersBuffered);
+		}
+		//Network.Instantiate(null, pos, Quaternion.identity, 0);
+	}
 }
