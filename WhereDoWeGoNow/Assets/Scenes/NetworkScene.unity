@@ -319,7 +319,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: mText
-      value: Start
+      value: Ready
       objectReference: {fileID: 0}
     - target: {fileID: 6500000, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: m_Size.x
@@ -1085,8 +1085,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1558499034}
   - 114: {fileID: 1558499033}
-  - 148: {fileID: 1558499032}
   - 114: {fileID: 1558499035}
+  - 148: {fileID: 1558499032}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -1104,7 +1104,7 @@ NetworkView:
   m_StateSynchronization: 1
   m_Observed: {fileID: 1558499034}
   m_ViewID:
-    m_ID: 2
+    m_ID: 1
     m_Type: 1
 --- !u!114 &1558499033
 MonoBehaviour:
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08822d23498aad4459462a5db5a6a200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 100004, guid: b418abe53fa96224ea44d0dcf904d8cb, type: 2}
 --- !u!4 &1558499034
 Transform:
   m_ObjectHideFlags: 0
@@ -1785,7 +1786,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
-  mText: Start
+  mText: Ready
   mFontSize: 20
   mFontStyle: 0
   mAlignment: 0

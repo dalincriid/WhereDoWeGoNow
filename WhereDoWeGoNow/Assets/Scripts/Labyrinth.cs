@@ -53,6 +53,15 @@ public class Labyrinth : MonoBehaviour
             wall.transform.position = position;
     }
 
+    private void PlaceFloor(int line, int column)
+    {
+        Vector3 position = new Vector3(line, -.5f, column);
+        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+        if (wall != null)
+            wall.transform.position = position;
+    }
+
     private void DigRoom(Vector2 location, int breadth, int length, int horizontal, int vertical)
     {
         int width = (int)location.x;
@@ -156,8 +165,11 @@ public class Labyrinth : MonoBehaviour
     {
         for (int width = 0; width < this.width; width++)
             for (int height = 0; height < this.height; height++)
+            {
                 if (this.maze[width, height] == 1)
                     this.PlaceWall(width, height);
+                this.PlaceFloor(width, height);
+            }
     }
 
     public List<Vector3> SitePlayer(int players)
@@ -177,7 +189,7 @@ public class Labyrinth : MonoBehaviour
                 length = random.Next(this.height);
                 spawner = this.maze[breadth, length];
             }
-            spawers.Add(new Vector3(breadth, 1, length));
+            spawers.Add(new Vector3(breadth, 2, length));
         }
         return spawers;
     }
