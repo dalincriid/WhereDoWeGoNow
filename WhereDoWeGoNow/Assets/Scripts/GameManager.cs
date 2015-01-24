@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
             m_ui.SetActive(false);
             m_player = Network.Instantiate(PlayerPrefab, spawnPoint, Quaternion.identity, 0) as GameObject;
 
-            Camera[] cameras = GameObject.FindObjectsOfType<Camera>();
+            Camera[] cameras = Resources.FindObjectsOfTypeAll<Camera>();
             foreach (var cam in cameras)
                 cam.enabled = false;
         }
