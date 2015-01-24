@@ -41,8 +41,7 @@ public class PlayerSync : MonoBehaviour
 		}
 		else
 		{
-			networkView.RPC("Halo", RPCMode.OthersBuffered);
+			networkView.RPC("Halo", RPCMode.OthersBuffered, pos);
 		}
-		//Network.Instantiate(null, pos, Quaternion.identity, 0);
 	}
 }
