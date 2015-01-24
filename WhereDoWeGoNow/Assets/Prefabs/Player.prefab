@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3331647a3bf74124a8725ac42cda3bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WavePrefab: {fileID: 100000, guid: f06eb3dbc776253429fa8decd01f2e9a, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
