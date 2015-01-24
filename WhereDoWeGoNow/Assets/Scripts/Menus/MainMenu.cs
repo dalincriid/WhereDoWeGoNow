@@ -14,6 +14,7 @@ namespace Menus
         #region FUNCTIONS
         private void Play()
         {
+            Fade.LoadLevel("NetworkScene", 2.0f, 2.0f, Color.black);
         }
 
         private void Option()
