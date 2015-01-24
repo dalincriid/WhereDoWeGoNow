@@ -6,7 +6,6 @@ public class NetworkManager : MonoBehaviour
     private const string typeName = "WhereDoWeGoNow";
     private const string gameName = "RoomName";
 
-    private GameManager m_gameManager;
     private HostData[] hostList;
 
     public void StartServer()
@@ -35,11 +34,6 @@ public class NetworkManager : MonoBehaviour
     #region MonoBehaviour Implementation
     protected void Awake()
     {
-        var go = GameObject.FindGameObjectWithTag("GameManager");
-        if (go)
-        {
-            m_gameManager = go.GetComponent<GameManager>();
-        }
     }
     protected void OnMasterServerEvent(MasterServerEvent msEvent)
     {

@@ -160,9 +160,9 @@ public class Labyrinth : MonoBehaviour
     }
     #endregion
 
-	void Start ()
+	public void GenerateLabyrinth(int seed)
     {
-        this.random = new System.Random();
+        this.random = new System.Random(seed);
         /* GENERATE MAZE */
         this.Generate();
         /* RENDER MAZE */
