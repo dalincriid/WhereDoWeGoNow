@@ -1144,7 +1144,7 @@ MonoBehaviour:
   width: 10
   height: 10
   wall: {fileID: 100000, guid: d9b74abf730d5aa4ea2fd9708ca7334a, type: 2}
-  floor: {fileID: 100000, guid: 22829e61490215549b6a8cd905cd7080, type: 2}
+  floor: {fileID: 100000, guid: 8c5419fff63182a44b0e439cbbd5af0c, type: 2}
 --- !u!1 &1705760676
 GameObject:
   m_ObjectHideFlags: 0
