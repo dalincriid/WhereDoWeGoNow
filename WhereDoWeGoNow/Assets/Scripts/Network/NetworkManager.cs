@@ -15,14 +15,21 @@ public class NetworkManager : MonoBehaviour
 
         MasterServer.RegisterHost(typeName, gameName);
     }
-
-    private void JoinServer(HostData hostData)
-    {
-        Network.Connect(hostData);
-    }
-    private void RefreshHostList()
+    public void RefreshHostList()
     {
         MasterServer.RequestHostList(typeName);
+    }
+    public bool JoinServer()
+    {
+        foreach (HostData data in hostList)
+        {
+            if (data.gameName == gameName)
+            {
+                Network.Connect(data);
+                return true;
+            }
+        }
+        return false;
     }
 
     #region MonoBehaviour Implementation
@@ -33,46 +40,17 @@ public class NetworkManager : MonoBehaviour
         {
             m_gameManager = go.GetComponent<GameManager>();
         }
-        DontDestroyOnLoad(this);
-    }
-    protected void OnServerInitialized()
-    {
-        Debug.Log("Server Initialized");
     }
     protected void OnMasterServerEvent(MasterServerEvent msEvent)
     {
         if (msEvent == MasterServerEvent.HostListReceived)
+        {
             hostList = MasterServer.PollHostList();
+        }
     }
     protected void OnConnectedToServer()
     {
         Debug.Log("Server Joined");
-    }
-    protected void OnGUI()
-    {
-        if (!Network.isClient && !Network.isServer)
-        {
-            if (GUI.Button(new Rect(100, 100, 250, 100), "Create"))
-                StartServer();
-
-            if (GUI.Button(new Rect(100, 250, 250, 100), "Refresh Hosts"))
-                RefreshHostList();
-
-            if (hostList != null)
-            {
-                for (int i = 0; i < hostList.Length; i++)
-                {
-                    if (GUI.Button(new Rect(400, 100 + (110 * i), 300, 100), hostList[i].gameName))
-                        JoinServer(hostList[i]);
-                }
-            }
-        }
-        else if (Network.isServer)
-        {
-            if (GUI.Button(new Rect(100, 100, 250, 100), "Start"))
-                m_gameManager.LaunchGame();
-        }
-
     }
     #endregion
 }
