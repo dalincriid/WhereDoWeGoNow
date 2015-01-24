@@ -16,7 +16,6 @@ public class PlayerSync : MonoBehaviour
 
     protected void Awake()
     {
-        m_remainingMessages = MessageCount;
         var go = GameObject.FindGameObjectWithTag("GameManager");
         m_gameManager = go.GetComponent<GameManager>();
     }
@@ -68,10 +67,11 @@ public class PlayerSync : MonoBehaviour
 
             if (e.keyCode == KeyCode.Return)
             {
-                if (m_message != "" && MessageCount > m_remainingMessages)
+                if (m_message != "" && 0 < MessageCount)
                 {
                     m_gameManager.PostMessage(m_message);
                     m_message = "";
+                    MessageCount--;
                 }
                 m_typingMessage = false;
             }
