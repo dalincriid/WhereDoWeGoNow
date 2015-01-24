@@ -24,7 +24,7 @@ namespace Menus
 
         override protected void Rewind()
         {
-            this.launcher.stage = Launcher.Stage.MAIN;
+            this.launcher.MoveInto(Launcher.Stage.MAIN);
         }
 
         private void DisplayEscape()

@@ -78,7 +78,7 @@ namespace Menus
 
         override protected void Rewind()
         {
-            this.launcher.stage = Launcher.Stage.OPTIONS;
+            this.launcher.MoveInto(Launcher.Stage.OPTIONS);
         }
 
         override protected void Display()
@@ -94,7 +94,7 @@ namespace Menus
             this.music = this.manager.music;
         }
 
-        override protected void ManageInputs()
+        override public void ManageInputs()
         {
             base.ManageInputs();
             if (Input.GetButtonDown("Increase"))
@@ -107,7 +107,7 @@ namespace Menus
         void Start()
         {
             this.stage = Launcher.Stage.SOUNDS;
-            this.buttons = new string[] { "Music", "Sound Effects"};
+            this.buttons = new string[] { "Music", "Sound Effects" };
             this.funtcions = new Action<float>[] { this.Music, this.SFX };
         }
     }

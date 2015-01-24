@@ -18,6 +18,7 @@ namespace Menus
         [NonSerialized]
         public Stage stage;
 
+        private Scene scene = null;
         private BackGround backGround = null;
         #endregion
 
@@ -30,6 +31,7 @@ namespace Menus
             scene.Reload();
             if (scene.backGround)
                 this.backGround.change(scene.backGround);
+            this.scene = scene;
         }
 
         public void MoveInto(Stage stage)
@@ -51,12 +53,12 @@ namespace Menus
 
         void Start()
         {
-            this.stage = Stage.MAIN;
+            this.MoveInto(Stage.MAIN);
         }
 
         void Update()
         {
-            
+            this.scene.ManageInputs();
         }
     }
 }
