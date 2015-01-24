@@ -8,12 +8,14 @@ public class GlowingSphere : MonoBehaviour {
     public float growingSpeed;
 
     private Vector3 v3Scale;
+	private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
         transform.localScale = new Vector3(beginScale, 0.5f, beginScale);
         v3Scale = new Vector3(maxScale, 0.5f, maxScale);
         this.renderer.material.color = Color.red;
+		this.audioSource = this.GetComponentInChildren<AudioSource>();
 	}
 	
 	// Update is called once per frame
