@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -9,48 +10,82 @@ public class NetworkManager : MonoBehaviour
     private GameManager m_gameManager;
     private HostData[] hostList;
 
-    public void StartServer()
-    {
-        Network.InitializeServer(4, 25000, !Network.HavePublicAddress());
+    private bool m_isRefreshing = false;
+    private bool m_isStarting = false;
 
-        MasterServer.RegisterHost(typeName, gameName);
-    }
-    public void RefreshHostList()
-    {
-        MasterServer.RequestHostList(typeName);
-    }
-    public bool JoinServer()
+    private Action m_onJoinServer;
+
+    private void DoJoinServer()
     {
         foreach (HostData data in hostList)
         {
             if (data.gameName == gameName)
             {
                 Network.Connect(data);
-                return true;
+                break;
             }
         }
-        return false;
+    }
+
+    public void StartServer()
+    {
+        if (m_isStarting)
+            return;
+        m_isStarting = true;
+        //MasterServer.ipAddress = "10.1.13.17";
+        //MasterServer.port = 23466;
+        //Network.natFacilitatorIP = "10.1.13.17";
+        //Network.natFacilitatorPort = 50005;
+
+        Network.InitializeServer(5, 25000, !Network.HavePublicAddress());
+        MasterServer.RegisterHost(typeName, gameName);
+    }
+    public void RefreshHostList()
+    {
+        if (!m_isRefreshing)
+        {
+            m_isRefreshing = true;
+            MasterServer.RequestHostList(typeName);
+        }
+    }
+    public void JoinServer(Action action)
+    {
+        RefreshHostList();
+        m_onJoinServer = action;
     }
 
     #region MonoBehaviour Implementation
     protected void Awake()
     {
         var go = GameObject.FindGameObjectWithTag("GameManager");
-        if (go)
+        m_gameManager = go.GetComponent<GameManager>();
+    }
+    protected void Update()
+    {
+        if (m_isRefreshing && MasterServer.PollHostList().Length > 0)
         {
-            m_gameManager = go.GetComponent<GameManager>();
+            m_isRefreshing = false;
+            hostList = MasterServer.PollHostList();
+            DoJoinServer();
         }
     }
-    protected void OnMasterServerEvent(MasterServerEvent msEvent)
+    protected void OnServerInitialized()
+    {
+    }
+    protected void OnConnectedToServer()
+    {
+        m_onJoinServer.Invoke();
+    }
+    protected void OnPlayerConnected(NetworkPlayer player)
+    {
+        m_gameManager.AddPlayer(player);
+    }
+    void OnMasterServerEvent(MasterServerEvent msEvent)
     {
         if (msEvent == MasterServerEvent.HostListReceived)
         {
             hostList = MasterServer.PollHostList();
         }
-    }
-    protected void OnConnectedToServer()
-    {
-        Debug.Log("Server Joined");
     }
     #endregion
 }
