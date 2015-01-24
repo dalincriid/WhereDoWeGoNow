@@ -182,6 +182,7 @@ public class Labyrinth : MonoBehaviour
     {
         System.Random random = new System.Random();
         List<Vector3> spawers = new List<Vector3>();
+        Vector3 scale = this.wall.transform.localScale;
 
         for (int index = 0; index < players; index++)
         {
@@ -195,7 +196,7 @@ public class Labyrinth : MonoBehaviour
                 length = random.Next(this.height);
                 spawner = this.maze[breadth, length];
             }
-            spawers.Add(new Vector3(breadth, 2, length));
+            spawers.Add(new Vector3(breadth * scale.x, 2, length * scale.y));
         }
         return spawers;
     }
