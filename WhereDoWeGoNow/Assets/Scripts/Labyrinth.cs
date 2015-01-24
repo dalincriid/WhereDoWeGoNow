@@ -16,6 +16,10 @@ public class Labyrinth : MonoBehaviour
     private int width = 0;
     [SerializeField]
     private int height = 0;
+    [SerializeField]
+    private GameObject wall = null;
+    [SerializeField]
+    private GameObject floor = null;
 
     private int[,] maze;
     private int roomRate = 0;
@@ -46,20 +50,23 @@ public class Labyrinth : MonoBehaviour
 
     private void PlaceWall(int line, int column)
     {
-        Vector3 position = new Vector3(line, 0.5f, column);
-        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject wall = Instantiate(this.wall) as GameObject;
+        Vector3 scale = wall.transform.localScale;
+        Vector3 position = new Vector3(line * scale.x, scale.y / 2, column * scale.z);
 
         if (wall != null)
             wall.transform.position = position;
+        
     }
 
-    private void PlaceFloor(int line, int column)
+    private void PlaceFloor()
     {
-        Vector3 position = new Vector3(line, -.5f, column);
-        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        Vector3 scale = this.wall.transform.localScale;
+        GameObject floor = Instantiate(this.floor) as GameObject;
+        Vector3 size = new Vector3(this.width * scale.x, 1, this.height * scale.z);
 
-        if (wall != null)
-            wall.transform.position = position;
+        if (floor)
+            floor.transform.localScale = size;
     }
 
     private void DigRoom(Vector2 location, int breadth, int length, int horizontal, int vertical)
@@ -165,11 +172,9 @@ public class Labyrinth : MonoBehaviour
     {
         for (int width = 0; width < this.width; width++)
             for (int height = 0; height < this.height; height++)
-            {
                 if (this.maze[width, height] == 1)
                     this.PlaceWall(width, height);
-                this.PlaceFloor(width, height);
-            }
+        this.PlaceFloor();
     }
 
     public List<Vector3> SitePlayer(int players)
@@ -193,14 +198,16 @@ public class Labyrinth : MonoBehaviour
         }
         return spawers;
     }
-    #endregion
 
-	public void GenerateLabyrinth(int seed)
+    public void Compute(int seed)
     {
         this.random = new System.Random(seed);
         /* GENERATE MAZE */
         this.Generate();
         /* RENDER MAZE */
         this.Build();
-	}
+    }
+    #endregion
+
+	
 }
