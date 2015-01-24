@@ -19,11 +19,8 @@ public class Labyrinth : MonoBehaviour
     private int height = 0;
     [SerializeField]
     private GameObject wall = null;
-<<<<<<< HEAD
     [SerializeField]
     private GameObject floor = null;
-=======
->>>>>>> Mind of the Maner
 
     private int[,] maze;
     private int roomRate = 0;
