@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Labyrinth : MonoBehaviour
 {
@@ -157,6 +158,28 @@ public class Labyrinth : MonoBehaviour
             for (int height = 0; height < this.height; height++)
                 if (this.maze[width, height] == 1)
                     this.PlaceWall(width, height);
+    }
+
+    public List<Vector3> SitePlayer(int players)
+    {
+        System.Random random = new System.Random();
+        List<Vector3> spawers = new List<Vector3>();
+
+        for (int index = 0; index < players; index++)
+        {
+            int length = 0;
+            int breadth = 0;
+            int spawner = 1;
+
+            while (spawner == 1)
+            {
+                breadth = random.Next(this.width);
+                length = random.Next(this.height);
+                spawner = this.maze[breadth, length];
+            }
+            spawers.Add(new Vector3(breadth, 1, length));
+        }
+        return spawers;
     }
     #endregion
 
