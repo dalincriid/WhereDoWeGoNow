@@ -24,8 +24,11 @@ public class Labyrinth : MonoBehaviour
     private GameObject wall = null;
     [SerializeField]
     private GameObject floor = null;
+    [SerializeField]
+    private GameObject[] traps = null;
 
     private int[,] maze;
+    private int trapRate = 0;
     private int roomRate = 0;
     private System.Random random = null;
     #endregion
@@ -65,6 +68,18 @@ public class Labyrinth : MonoBehaviour
         this.floor.transform.localScale = new Vector3(this.width, 1, this.height);
 
         Network.Instantiate(floor, Vector3.zero, Quaternion.identity, 0);
+    }
+    private void PlaceTrap(int line, int column, int type)
+    {
+        Vector3 scale = this.wall.transform.localScale;
+        Vector3 position = new Vector3(line * scale.x, scale.y / 2, column * scale.z);
+
+        Network.Instantiate(this.traps[type], position, Quaternion.identity, 0);
+    }
+
+    private void MarkTrap(Vector2 location)
+    {
+        this.maze[(int)location.x, (int)location.y] = this.random.Next(this.traps.Length);
     }
 
     private void DigRoom(Vector2 location, int breadth, int length, int horizontal, int vertical)
@@ -138,7 +153,6 @@ public class Labyrinth : MonoBehaviour
                     break;
             }
         }
-
     }
 
     private void Dig(Vector2 location)
@@ -147,10 +161,22 @@ public class Labyrinth : MonoBehaviour
             this.DigPath(location);
         else
             this.DigRoom(location, this.random.Next(1, this.width / 10), this.random.Next(1, this.height / 10), (this.random.Next(1) > 0) ? 1 : -1, (this.random.Next(1) > 0) ? 1 : -1);
+        if (this.random.Next(1, 100) <= this.roomRate)
+            this.MarkTrap(location);
+    }
+
+    private void SizeArea(int players)
+    {
+        float ratio = players / 4;
+        float size = 50 * ratio;
+
+        this.width = (int)size;
+        this.height = (int)size;
     }
 
     private void Generate()
     {
+        this.trapRate = this.random.Next(0, 10);
         this.roomRate = this.random.Next(0, 50);
         this.maze = new int[this.width, this.height];
 
@@ -169,9 +195,16 @@ public class Labyrinth : MonoBehaviour
     private void Build()
     {
         for (int width = 0; width < this.width; width++)
+        { 
             for (int height = 0; height < this.height; height++)
-                if (this.maze[width, height] == 1)
+            {
+                int index = this.maze[width, height];
+                if (index == 1)
                     this.PlaceWall(width, height);
+                else if (index != 0)
+                    this.PlaceTrap(width, height, index);
+            }
+        }
         this.PlaceFloor();
     }
 
@@ -200,13 +233,16 @@ public class Labyrinth : MonoBehaviour
         return spawers;
     }
 
-    public void Compute(int seed)
+    public List<Vector3> Compute(int seed, int players)
     {
         this.random = new System.Random(seed);
+        this.SizeArea(players);
         /* GENERATE MAZE */
         this.Generate();
         /* RENDER MAZE */
         this.Build();
+
+        return SitePlayer(players);
     }
     #endregion
 }

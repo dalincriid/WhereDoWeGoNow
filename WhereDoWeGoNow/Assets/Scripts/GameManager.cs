@@ -173,8 +173,7 @@ public class GameManager : MonoBehaviour
                     return;
             }
             int seed = UnityEngine.Random.Range(0, 100);
-            m_labyrinth.Compute(seed);
-            var spawnPoints = m_labyrinth.SitePlayer(Network.connections.Length);
+            var spawnPoints = m_labyrinth.Compute(seed, Network.connections.Length);
             for (int i = 0; i < Network.connections.Length; ++i)
             {
                 networkView.RPC("SpawnPlayer", Network.connections[i], spawnPoints[i]);
