@@ -174,7 +174,7 @@ public class Labyrinth : MonoBehaviour
 
     private void Generate()
     {
-        this.trapRate = this.random.Next(0, 10);
+        this.trapRate = this.random.Next(0, 5);
         this.roomRate = this.random.Next(0, 50);
         this.maze = new int[this.width, this.height];
 
