@@ -737,7 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 2
   fadeTimeLaps: 5
-  waitTimeLaps: 5
+  waitTimeLaps: 2
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

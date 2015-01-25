@@ -13,9 +13,6 @@ public class Labyrinth : MonoBehaviour
     }
 
     #region VARIABLES
-    public FireTrap FireTrapPrefab;
-    public SpikesTrap SpikesTrapPrefab;
-
     [SerializeField]
     private int width = 0;
     [SerializeField]
@@ -167,7 +164,7 @@ public class Labyrinth : MonoBehaviour
     private void SizeArea(int players)
     {
         float ratio = (float)players / 4.0f;
-        float size = 50.0f * ratio;
+        float size = 25.0f * ratio;
 
         this.width = (int)size;
         this.height = (int)size;
