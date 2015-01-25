@@ -495,11 +495,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 413222049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2091669140}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!102 &413222051
 TextMesh:
   serializedVersion: 3
@@ -507,7 +507,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 413222049}
-  m_Text: "LEREUN Paul-\xC9mile"
+  m_Text: LE REUN Paul-Emile
   m_OffsetZ: 0
   m_CharacterSize: .0500000007
   m_LineSpacing: 1
@@ -565,11 +565,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 482358077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2091669140}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!102 &482358079
 TextMesh:
   serializedVersion: 3
@@ -845,11 +845,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 825133675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2091669140}
-  m_RootOrder: 0
+  m_RootOrder: 2
 --- !u!102 &825133677
 TextMesh:
   serializedVersion: 3
@@ -1346,9 +1346,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 825133676}
   - {fileID: 482358078}
   - {fileID: 413222050}
+  - {fileID: 825133676}
   - {fileID: 358368216}
   m_Father: {fileID: 103263027}
   m_RootOrder: 2
