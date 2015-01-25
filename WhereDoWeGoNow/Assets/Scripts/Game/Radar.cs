@@ -60,6 +60,7 @@ public class Radar : MonoBehaviour
         return true;
     }
     #endregion
+
     void Awake()
     {
         this.curtain = GameObject.FindGameObjectWithTag("FinalCurtain").guiTexture;
@@ -80,8 +81,12 @@ public class Radar : MonoBehaviour
         if (this.tag == "Player" && inGame)
         {
             foreach (GameObject other in this.partners)
+            {
                 if (!this.Scan(other.transform.position))
                     return;
+                else
+                    other.GetComponentInChildren<Light>().enabled = true;
+            }
             this.inGame = false;
             this.timer = this.fadeTimeLaps;
         }
