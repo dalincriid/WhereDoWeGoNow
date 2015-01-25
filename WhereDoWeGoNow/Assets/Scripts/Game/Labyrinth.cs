@@ -70,7 +70,7 @@ public class Labyrinth : MonoBehaviour
     {
         type -= 2;
         Vector3 scale = this.wall.transform.localScale;
-        Vector3 position = new Vector3(line * scale.x, scale.y / 2, column * scale.z);
+        Vector3 position = new Vector3(line * scale.x, 0, column * scale.z);
 
         Network.Instantiate(this.traps[type], position, Quaternion.identity, 0);
     }
