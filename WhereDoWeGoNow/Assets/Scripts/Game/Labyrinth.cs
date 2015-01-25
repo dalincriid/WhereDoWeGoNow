@@ -62,7 +62,7 @@ public class Labyrinth : MonoBehaviour
 
     private void PlaceFloor(int line, int column)
     {
-        Network.Instantiate(this.floor, new Vector3((float)line, -0.5.f, (float)column), Quaternion.identity, 0);
+        Network.Instantiate(this.floor, new Vector3((float)line, -0.5f, (float)column), Quaternion.identity, 0);
     }
 
     private void PlaceTrap(int line, int column, int type)
