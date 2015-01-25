@@ -9,12 +9,11 @@ public class Radar : MonoBehaviour
     private float range = 0.0f;
     [SerializeField]
     private float timeLaps = 0.0f;
-    [SerializeField]
-    private GUITexture curtain = null;
 
     private float timer = 0.0f;
     private float alpha = 0.0f;
     private bool inGame = false;
+    private GUITexture curtain = null;
     private List<GameObject> partners = null;
     #endregion
 
@@ -62,7 +61,7 @@ public class Radar : MonoBehaviour
     #endregion
     void Awake()
     {
-        //this.curtain = GameObject.FindGameObjectWithTag("FinalCurtain").guiTexture;
+        this.curtain = GameObject.FindGameObjectWithTag("FinalCurtain").guiTexture;
     }
 
     void Start()
