@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     #region Server data
     private Dictionary<NetworkPlayer, bool> m_players;
+    private bool m_gameStarted = false;
+    private PlayerSync[] m_playerObjects;
     #endregion
 
     public float TimeToEraseMessage = 10.0f;
@@ -20,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     private bool m_started = false;
     private bool m_firstPlayer = true;
+
+    private int m_currentPlayer = 0;
 
     private Labyrinth m_labyrinth;
     private NetworkManager m_networkManager;
@@ -41,6 +45,38 @@ public class GameManager : MonoBehaviour
     }
     protected void Update()
     {
+        if (Network.isServer)
+        {
+            if (!m_gameStarted)
+            {
+                m_gameStarted = true;
+                foreach (var player in m_players.Keys)
+                {
+                    if (!m_players[player])
+                    {
+                        m_gameStarted = false;
+                        break;
+                    }
+                }
+                if (m_gameStarted)
+                {
+                    m_playerObjects = Resources.FindObjectsOfTypeAll<PlayerSync>();
+                }
+            }
+            else
+            {
+                if (Input.GetAxis("Fire1") != 0)
+                {
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<Camera>().enabled = false;
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<AudioListener>().enabled = false;
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<Light>().enabled = false;
+                    m_currentPlayer++;
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<Camera>().enabled = true;
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<AudioListener>().enabled = true;
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<Light>().enabled = true;
+                }
+            }
+        }
         m_timeBeforeErase += Time.deltaTime;
         if (m_timeBeforeErase >= TimeToEraseMessage)
         {
@@ -101,7 +137,6 @@ public class GameManager : MonoBehaviour
         m_message = message;
         m_timeBeforeErase = .0f;
     }
-
     [RPC]
     private void LaunchGame(NetworkPlayer player)
     {
