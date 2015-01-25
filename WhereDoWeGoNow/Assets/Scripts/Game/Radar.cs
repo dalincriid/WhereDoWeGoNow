@@ -79,13 +79,16 @@ public class Radar : MonoBehaviour
             this.FindOutOthers();
         if (this.tag == "Player" && inGame)
         {
+            bool foundAll = true;
             foreach (GameObject other in this.partners)
             {
                 if (!this.Scan(other.transform.position))
-                    return;
+                    foundAll = false;
                 else
                     other.GetComponentInChildren<Light>().enabled = true;
             }
+            if (!foundAll)
+                return;
             this.inGame = false;
             this.timer = this.fadeTimeLaps;
         }
