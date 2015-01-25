@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     #region Server data
     private Dictionary<NetworkPlayer, bool> m_players;
+    private bool m_creatingPlayers = false;
     private bool m_gameStarted = false;
     private PlayerSync[] m_playerObjects;
     #endregion
@@ -45,22 +46,19 @@ public class GameManager : MonoBehaviour
     }
     protected void Update()
     {
-        if (Network.isServer)
+        if (Network.isServer && m_creatingPlayers)
         {
             if (!m_gameStarted)
             {
-                m_gameStarted = true;
-                foreach (var player in m_players.Keys)
+                m_playerObjects = GameObject.FindObjectsOfType<PlayerSync>();
+                if (m_playerObjects.Length == m_players.Count)
                 {
-                    if (!m_players[player])
-                    {
-                        m_gameStarted = false;
-                        break;
-                    }
-                }
-                if (m_gameStarted)
-                {
-                    m_playerObjects = Resources.FindObjectsOfTypeAll<PlayerSync>();
+                    networkView.RPC("DisableOtherPlayers", RPCMode.OthersBuffered);
+
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<Camera>().enabled = true;
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<AudioListener>().enabled = true;
+                    m_playerObjects[m_currentPlayer].GetComponentInChildren<Light>().enabled = true;
+                    m_gameStarted = true;
                 }
             }
             else
@@ -70,7 +68,9 @@ public class GameManager : MonoBehaviour
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<Camera>().enabled = false;
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<AudioListener>().enabled = false;
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<Light>().enabled = false;
-                    m_currentPlayer++;
+
+                    m_currentPlayer = ++m_currentPlayer % m_playerObjects.Length;
+
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<Camera>().enabled = true;
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<AudioListener>().enabled = true;
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<Light>().enabled = true;
@@ -132,6 +132,30 @@ public class GameManager : MonoBehaviour
 
     #region Network Callbacks
     [RPC]
+    private void DisableOtherPlayers()
+    {
+        if (Network.isClient)
+        {
+            Camera[] cameras = GameObject.FindObjectsOfType<Camera>();
+            foreach (var cam in cameras)
+                cam.enabled = false;
+
+            Light[] lights = GameObject.FindObjectsOfType<Light>();
+            foreach (var light in lights)
+                light.enabled = false;
+
+            AudioListener[] listeners = GameObject.FindObjectsOfType<AudioListener>();
+            foreach (var listener in listeners)
+                listener.enabled = false;
+
+            m_player.tag = "Player";
+            m_player.GetComponentInChildren<AudioListener>().enabled = true;
+            m_player.GetComponentInChildren<Camera>().enabled = true;
+            m_player.GetComponentInChildren<Light>().enabled = true;
+            m_player.GetComponent<Countdown>().enabled = true;
+        }
+    }
+    [RPC]
     private void PostMessage(string message)
     {
         m_message = message;
@@ -157,6 +181,7 @@ public class GameManager : MonoBehaviour
             {
                 networkView.RPC("SpawnPlayer", Network.connections[i], spawnPoints[i]);
             }
+            m_creatingPlayers = true;
         }
         else if (Network.isClient && !m_started)
         {
@@ -177,19 +202,7 @@ public class GameManager : MonoBehaviour
         {
             m_player = Network.Instantiate(PlayerPrefab, spawnPoint, Quaternion.identity, 0) as GameObject;
 
-            Camera[] cameras = Resources.FindObjectsOfTypeAll<Camera>();
-            foreach (var cam in cameras)
-                cam.enabled = false;
-
-            Light[] lights = Resources.FindObjectsOfTypeAll<Light>();
-            foreach (var light in lights)
-                light.enabled = false;
-
-            AudioListener[] listeners = Resources.FindObjectsOfTypeAll<AudioListener>();
-            foreach (var listener in listeners)
-                listener.enabled = false;
-
-			var countdowns = Resources.FindObjectsOfTypeAll<Countdown>();
+            var countdowns = GameObject.FindObjectsOfType<Countdown>();
 			foreach (var item in countdowns)
 			{
 				item.enabled = false;

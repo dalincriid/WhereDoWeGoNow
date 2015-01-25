@@ -40,14 +40,6 @@ public class PlayerSync : MonoBehaviour
 	{
         if (!networkView.isMine)
             return ;
-        if (!GetComponentInChildren<Camera>().enabled)
-        {
-            tag = "Player";
-            GetComponentInChildren<AudioListener>().enabled = true;
-            GetComponentInChildren<Camera>().enabled = true;
-            GetComponentInChildren<Light>().enabled = true;
-			this.GetComponent<Countdown>().enabled = true;
-        }
         if (Input.GetKeyDown(KeyCode.E) && Time.time > nextWave && !m_typingMessage && CryCount > 0)
 		{
             CryCount--;
