@@ -6,10 +6,13 @@ public class Radar : MonoBehaviour
 {
     #region VARIABLES
     [SerializeField]
-    private float range = 0;
+    private float range = 0.0f;
+    [SerializeField]
+    private float timeLaps = 0.0f;
     [SerializeField]
     private GUITexture curtain = null;
 
+    private float timer = 0.0f;
     private float alpha = 0.0f;
     private bool inGame = false;
     private List<GameObject> partners = null;
@@ -24,6 +27,7 @@ public class Radar : MonoBehaviour
         this.alpha = Mathf.Lerp(this.alpha, 0.8f, 0.1f * Time.deltaTime);
 
         this.curtain.color = new Color(1, 1, 1, this.alpha);
+        this.timer -= Time.deltaTime;
     }
 
     private void FindOutOthers()
@@ -56,6 +60,10 @@ public class Radar : MonoBehaviour
         return true;
     }
     #endregion
+    void Awake()
+    {
+        //this.curtain = GameObject.FindGameObjectWithTag("FinalCurtain").guiTexture;
+    }
 
     void Start()
     {
@@ -73,7 +81,11 @@ public class Radar : MonoBehaviour
                 if (!this.Scan(other.transform.position))
                     return;
             this.inGame = false;
+            this.timer = this.timeLaps;
         }
-        this.EndGame();
+        if (this.timer > 0.0f)
+            this.EndGame();
+        else
+            Fade.LoadLevel("Credits", 2.0f, 2.0f, Color.black);
     }
 }
