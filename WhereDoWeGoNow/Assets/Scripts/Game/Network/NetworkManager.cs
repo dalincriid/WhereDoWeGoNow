@@ -4,7 +4,7 @@ using System;
 
 public class NetworkManager : MonoBehaviour
 {
-    private const string typeName = "WhereDoWeGoNowSamiTesting";
+    private const string typeName = "WhereDoWeGoNow";
     private const string gameName = "RoomName";
 
     private GameManager m_gameManager;

@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if (Input.GetAxis("Fire1") != 0)
+                if (Input.GetButtonDown("Fire1"))
                 {
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<Camera>().enabled = false;
                     m_playerObjects[m_currentPlayer].GetComponentInChildren<AudioListener>().enabled = false;
