@@ -1147,7 +1147,8 @@ MonoBehaviour:
   width: 10
   height: 10
   wall: {fileID: 100000, guid: d9b74abf730d5aa4ea2fd9708ca7334a, type: 2}
-  floor: {fileID: 100000, guid: 8c5419fff63182a44b0e439cbbd5af0c, type: 2}
+  floor: {fileID: 100000, guid: 4f28818957f4bbc4ebf5ede3a09e0ee1, type: 2}
+  traps: []
 --- !u!1 &1698569698
 GameObject:
   m_ObjectHideFlags: 0

@@ -63,12 +63,11 @@ public class Labyrinth : MonoBehaviour
         Network.Instantiate(this.wall, position, Quaternion.identity, 0);
     }
 
-    private void PlaceFloor()
+    private void PlaceFloor(int line, int column)
     {
-        this.floor.transform.localScale = new Vector3(this.width, 1, this.height);
-
-        Network.Instantiate(floor, Vector3.zero, Quaternion.identity, 0);
+        Network.Instantiate(this.floor, new Vector3((float)line, -0.5.f, (float)column), Quaternion.identity, 0);
     }
+
     private void PlaceTrap(int line, int column, int type)
     {
         Vector3 scale = this.wall.transform.localScale;
@@ -203,9 +202,9 @@ public class Labyrinth : MonoBehaviour
                     this.PlaceWall(width, height);
                 else if (index != 0)
                     this.PlaceTrap(width, height, index);
+                this.PlaceFloor(width, height);
             }
         }
-        this.PlaceFloor();
     }
 
     public List<Vector3> SitePlayer(int players)
