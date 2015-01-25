@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea0f014d51855948b9222dcc22da106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  range: 2
   timeLaps: 3
 --- !u!124 &12400000
 Behaviour:
