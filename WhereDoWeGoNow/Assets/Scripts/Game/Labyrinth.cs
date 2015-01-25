@@ -62,7 +62,8 @@ public class Labyrinth : MonoBehaviour
 
     private void PlaceFloor(int line, int column)
     {
-        Network.Instantiate(this.floor, new Vector3((float)line, -0.5f, (float)column), Quaternion.identity, 0);
+        Vector3 scale = this.wall.transform.localScale;
+        Network.Instantiate(this.floor, new Vector3(line * scale.x, scale.y / 2, column * scale.z), Quaternion.identity, 0);
     }
 
     private void PlaceTrap(int line, int column, int type)
