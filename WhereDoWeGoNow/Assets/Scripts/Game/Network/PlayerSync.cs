@@ -5,6 +5,7 @@ public class PlayerSync : MonoBehaviour
 {
 	public GameObject WavePrefab;
     public int MessageCount = 5;
+    public int CryCount = 5;
     public float coolDownDuration = 5.0f;
 	public float Countdown = 120.0f;
 
@@ -47,8 +48,9 @@ public class PlayerSync : MonoBehaviour
             GetComponentInChildren<Camera>().enabled = true;
             GetComponentInChildren<Light>().enabled = true;
         }
-        if (Input.GetKeyDown(KeyCode.E) && Time.time > nextWave && !m_typingMessage)
+        if (Input.GetKeyDown(KeyCode.E) && Time.time > nextWave && !m_typingMessage && CryCount > 0)
 		{
+            CryCount--;
 			this.Halo(this.transform.position);
             nextWave = Time.time + coolDownDuration;
 		}
