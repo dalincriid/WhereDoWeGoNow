@@ -15,6 +15,10 @@ public class PlayerSync : MonoBehaviour
 
     private GameManager m_gameManager;
 
+    public void TouchedByTrap()
+    {
+    }
+
     protected void Awake()
     {
         var go = GameObject.FindGameObjectWithTag("GameManager");

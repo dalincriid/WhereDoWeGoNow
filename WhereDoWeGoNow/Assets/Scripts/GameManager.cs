@@ -173,8 +173,6 @@ public class GameManager : MonoBehaviour
                     return;
             }
             int seed = UnityEngine.Random.Range(0, 100);
-            networkView.RPC("SpawnLabyrinth", RPCMode.OthersBuffered, seed);
-
             m_labyrinth.Compute(seed);
             var spawnPoints = m_labyrinth.SitePlayer(Network.connections.Length);
             for (int i = 0; i < Network.connections.Length; ++i)
@@ -188,12 +186,6 @@ public class GameManager : MonoBehaviour
             m_started = true;
             networkView.RPC("LaunchGame", RPCMode.Server, player);
         }
-    }
-    [RPC]
-    private void SpawnLabyrinth(int seed)
-    {
-        if (Network.isClient)
-            m_labyrinth.Compute(seed);
     }
     [RPC]
     private void SpawnPlayer(Vector3 spawnPoint)

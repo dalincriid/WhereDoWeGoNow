@@ -51,25 +51,17 @@ public class Labyrinth : MonoBehaviour
 
     private void PlaceWall(int line, int column)
     {
-        GameObject wall = Instantiate(this.wall) as GameObject;
-        Vector3 scale = wall.transform.localScale;
+        Vector3 scale = this.wall.transform.localScale;
         Vector3 position = new Vector3(line * scale.x, scale.y / 2, column * scale.z);
 
-        if (wall != null)
-            wall.transform.position = position;
-        
+        Network.Instantiate(this.wall, position, Quaternion.identity, 0);
     }
 
     private void PlaceFloor()
     {
-        Vector3 scale = this.wall.transform.localScale;
-        GameObject floor = Instantiate(this.floor) as GameObject;
-        Vector3 size = new Vector3(this.width, 1, this.height);
+        this.floor.transform.localScale = new Vector3(this.width, 1, this.height);
 
-        if (!floor)
-            return;
-        floor.transform.position = Vector3.zero;
-        floor.transform.localScale = size;
+        Network.Instantiate(floor, Vector3.zero, Quaternion.identity, 0);
     }
 
     private void DigRoom(Vector2 location, int breadth, int length, int horizontal, int vertical)
