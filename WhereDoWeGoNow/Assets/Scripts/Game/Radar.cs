@@ -36,6 +36,7 @@ public class Radar : MonoBehaviour
     {
         CharacterController[] characters = GameObject.FindObjectsOfType<CharacterController>() as CharacterController[];
 
+        this.beacon = this.tag;
         Debug.Log(characters.Length);
         foreach (CharacterController player in characters)
             if (player.gameObject.tag != "Player")
@@ -84,9 +85,9 @@ public class Radar : MonoBehaviour
             this.inGame = false;
             this.timer = this.fadeTimeLaps;
         }
-        if (this.timer > 0.0f)
+        if (!inGame && this.timer > 0.0f)
             this.EndGame();
-        else if ((this.waitTimeLaps -= Time.deltaTime) < 0.0f)
+        else if (!inGame && (this.waitTimeLaps -= Time.deltaTime) < 0.0f)
             Fade.LoadLevel("Credits", 2.0f, 2.0f, Color.black);
     }
 }
