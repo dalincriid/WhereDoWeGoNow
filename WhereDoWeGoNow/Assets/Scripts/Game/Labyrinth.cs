@@ -72,7 +72,8 @@ public class Labyrinth : MonoBehaviour
         Vector3 scale = this.wall.transform.localScale;
         Vector3 position = new Vector3(line * scale.x, 0, column * scale.z);
 
-        Network.Instantiate(this.traps[type], position, Quaternion.identity, 0);
+        if (this.traps.Length > 0)
+            Network.Instantiate(this.traps[type], position, Quaternion.identity, 0);
     }
 
     private void MarkTrap(Vector2 location)
