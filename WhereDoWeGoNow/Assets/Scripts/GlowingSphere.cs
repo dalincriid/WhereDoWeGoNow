@@ -17,7 +17,7 @@ public class GlowingSphere : MonoBehaviour
 		v3Scale = new Vector3(maxScale, 0.5f, maxScale);
 		this.renderer.material.color = Color.red;
 		this.audioSource = this.GetComponentInChildren<AudioSource>();
-		this.audioSource.minDistance = this.maxScale / 2.0f;
+		this.audioSource.minDistance = this.maxScale;
 		this.audioSource.maxDistance = this.audioSource.minDistance + 0.5f;
 		this.audioSource.Play();
 	}
