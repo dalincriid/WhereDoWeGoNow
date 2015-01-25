@@ -337,6 +337,7 @@ MonoBehaviour:
   MessageCount: 5
   CryCount: 5
   coolDownDuration: 5
+  Countdown: 120
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

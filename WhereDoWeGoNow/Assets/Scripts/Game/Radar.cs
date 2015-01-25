@@ -51,10 +51,7 @@ public class Radar : MonoBehaviour
         Debug.DrawRay(this.transform.position, direction * this.range);
 
         if (!Physics.Raycast(ray, out hit, this.range) || !this.partners.Contains(hit.collider.gameObject))
-        {
-            Debug.Log("False");
             return false;
-        }
         Debug.Log("True");
         return true;
     }
