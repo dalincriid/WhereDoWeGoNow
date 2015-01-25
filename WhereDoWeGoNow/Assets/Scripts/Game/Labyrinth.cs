@@ -167,8 +167,8 @@ public class Labyrinth : MonoBehaviour
 
     private void SizeArea(int players)
     {
-        float ratio = players / 4;
-        float size = 50 * ratio;
+        float ratio = (float)players / 4.0f;
+        float size = 50.0f * ratio;
 
         this.width = (int)size;
         this.height = (int)size;
