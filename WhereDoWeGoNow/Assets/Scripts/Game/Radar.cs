@@ -34,7 +34,7 @@ public class Radar : MonoBehaviour
 
     private void FindOutOthers()
     {
-        CharacterController[] characters = GameObject.FindObjectsOfType<CharacterController>() as CharacterController[];
+        CharacterController[] characters = GameObject.FindObjectsOfType<CharacterController>();
 
         this.beacon = this.tag;
         Debug.Log(characters.Length);
@@ -43,18 +43,18 @@ public class Radar : MonoBehaviour
                 this.partners.Add(player.gameObject);
     }
 
-    private bool Scan(Vector3 other)
+    private bool Scan(GameObject other)
     {
         Ray ray;
         RaycastHit hit;
-        Vector3 direction = other - this.transform.position;
+        Vector3 direction = other.transform.position - this.transform.position;
 
         direction.Normalize();
         ray = new Ray(this.transform.position, direction);
 
         Debug.DrawRay(this.transform.position, direction * this.range);
 
-        if (!Physics.Raycast(ray, out hit, this.range) || !this.partners.Contains(hit.collider.gameObject))
+        if (!Physics.Raycast(ray, out hit, this.range) || !hit.collider.gameObject != other)
             return false;
         return true;
     }
@@ -82,7 +82,7 @@ public class Radar : MonoBehaviour
             bool foundAll = true;
             foreach (GameObject other in this.partners)
             {
-                if (!this.Scan(other.transform.position))
+                if (!this.Scan(other))
                     foundAll = false;
                 else
                     other.GetComponentInChildren<Light>().enabled = true;
