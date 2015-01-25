@@ -13,9 +13,6 @@ public class Labyrinth : MonoBehaviour
     }
 
     #region VARIABLES
-    public FireTrap FireTrapPrefab;
-    public SpikesTrap SpikesTrapPrefab;
-
     [SerializeField]
     private int width = 0;
     [SerializeField]
@@ -69,6 +66,7 @@ public class Labyrinth : MonoBehaviour
 
         Network.Instantiate(floor, Vector3.zero, Quaternion.identity, 0);
     }
+
     private void PlaceTrap(int line, int column, int type)
     {
         Vector3 scale = this.wall.transform.localScale;
@@ -168,7 +166,7 @@ public class Labyrinth : MonoBehaviour
     private void SizeArea(int players)
     {
         float ratio = (float)players / 4.0f;
-        float size = 50.0f * ratio;
+        float size = 25.0f * ratio;
 
         this.width = (int)size;
         this.height = (int)size;

@@ -56,7 +56,6 @@ public class Radar : MonoBehaviour
 
         if (!Physics.Raycast(ray, out hit, this.range) || !this.partners.Contains(hit.collider.gameObject))
             return false;
-        Debug.Log("True");
         return true;
     }
     #endregion
