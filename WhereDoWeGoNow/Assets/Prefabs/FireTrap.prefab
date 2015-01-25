@@ -221,7 +221,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: -1}
+  m_LocalPosition: {x: -1, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -283,7 +283,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400008}
@@ -737,7 +737,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4, y: 10, z: 4}
@@ -752,8 +752,8 @@ Light:
   serializedVersion: 3
   m_Type: 2
   m_Color: {r: 1, g: .613192797, b: .186567187, a: 1}
-  m_Intensity: 1.10810816
-  m_Range: 6.11444902
+  m_Intensity: .5
+  m_Range: 4
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -787,8 +787,8 @@ Light:
   serializedVersion: 3
   m_Type: 2
   m_Color: {r: 1, g: .613192797, b: .186567187, a: 1}
-  m_Intensity: 1.10810816
-  m_Range: 6.11444902
+  m_Intensity: .5
+  m_Range: 4
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -822,8 +822,8 @@ Light:
   serializedVersion: 3
   m_Type: 2
   m_Color: {r: 1, g: .613192797, b: .186567187, a: 1}
-  m_Intensity: 1.10810816
-  m_Range: 6.11444902
+  m_Intensity: .5
+  m_Range: 4
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -857,8 +857,8 @@ Light:
   serializedVersion: 3
   m_Type: 2
   m_Color: {r: 1, g: .613192797, b: .186567187, a: 1}
-  m_Intensity: 1.10810816
-  m_Range: 6.11444902
+  m_Intensity: .5
+  m_Range: 4
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -893,6 +893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 550e84d934489e243aa89905797330b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Interval: 2
+  MalusTime: 5
 --- !u!148 &14800000
 NetworkView:
   m_ObjectHideFlags: 1
