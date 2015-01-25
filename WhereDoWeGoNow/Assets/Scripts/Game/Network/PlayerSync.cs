@@ -6,6 +6,7 @@ public class PlayerSync : MonoBehaviour
 	public GameObject WavePrefab;
     public int MessageCount = 5;
     public float coolDownDuration = 5.0f;
+	public float Countdown = 120.0f;
 
     private int m_remainingMessages;
     private bool m_typingMessage = false;
@@ -55,6 +56,7 @@ public class PlayerSync : MonoBehaviour
         {
             m_typingMessage = true;
         }
+		this.Countdown -= Time.deltaTime;
 	}
 
     protected void OnGUI()
@@ -81,6 +83,24 @@ public class PlayerSync : MonoBehaviour
                 m_message = GUI.TextField(new Rect(0, 0, Screen.width - 100, 25), m_message, 35);
             }
         }
+		if (this.Countdown > 0.0f)
+		{
+			string timeToDisplay = "";
+			int minutes = (int)this.Countdown / 60;
+			timeToDisplay += minutes;
+			timeToDisplay += ":";
+			int seconds = (int)this.Countdown % 60;
+			if (seconds < 10)
+			{
+				timeToDisplay += "0";
+			}
+			timeToDisplay += seconds;
+			GUI.Label(new Rect(Screen.width / 2, 100, 100, 100), timeToDisplay);
+		}
+		else
+		{
+			//game over
+		}
     }
 
 	[RPC]
