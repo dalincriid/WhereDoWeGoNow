@@ -153,6 +153,12 @@ public class GameManager : MonoBehaviour
             AudioListener[] listeners = Resources.FindObjectsOfTypeAll<AudioListener>();
             foreach (var listener in listeners)
                 listener.enabled = false;
+
+			var countdowns = Resources.FindObjectsOfTypeAll<Countdown>();
+			foreach (var item in countdowns)
+			{
+				item.enabled = false;
+			}
         }
     }
     #endregion
