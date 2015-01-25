@@ -199,7 +199,7 @@ public class Labyrinth : MonoBehaviour
                 int index = this.maze[width, height];
                 if (index == 1)
                     this.PlaceWall(width, height);
-                else if (index > 2)
+                else if (index > 1)
                     this.PlaceTrap(width, height, index);
                 this.PlaceFloor(width, height);
             }
