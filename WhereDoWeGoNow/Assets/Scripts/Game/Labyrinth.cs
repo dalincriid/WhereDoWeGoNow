@@ -13,6 +13,9 @@ public class Labyrinth : MonoBehaviour
     }
 
     #region VARIABLES
+    public FireTrap FireTrapPrefab;
+    public SpikesTrap SpikesTrapPrefab;
+
     [SerializeField]
     private int width = 0;
     [SerializeField]

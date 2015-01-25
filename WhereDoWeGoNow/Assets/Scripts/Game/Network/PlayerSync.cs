@@ -8,6 +8,7 @@ public class PlayerSync : MonoBehaviour
     public int CryCount = 5;
     public float coolDownDuration = 5.0f;
 
+    private float m_malusTime = -1.0f;
     private int m_remainingMessages;
     private bool m_typingMessage = false;
     private string m_message = "";
@@ -15,8 +16,10 @@ public class PlayerSync : MonoBehaviour
 
     private GameManager m_gameManager;
 
-    public void TouchedByTrap()
+    public void TouchedByTrap(float MalusTime)
     {
+        m_malusTime = MalusTime;
+        GetComponentInChildren<Light>().enabled = false;
     }
 
     protected void Awake()
@@ -44,6 +47,15 @@ public class PlayerSync : MonoBehaviour
 	{
         if (!networkView.isMine)
             return ;
+        if (m_malusTime > .0f)
+        {
+            m_malusTime -= Time.deltaTime;
+            if (m_malusTime <= .0f)
+            {
+                GetComponentInChildren<Light>().enabled = true;
+                m_malusTime = .0f;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.E) && Time.time > nextWave && !m_typingMessage && CryCount > 0)
 		{
             CryCount--;

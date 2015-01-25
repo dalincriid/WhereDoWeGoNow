@@ -179,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 98257158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .0045454544, y: .0045454544, z: .0045454544}
+  m_LocalScale: {x: .00527704507, y: .00527704507, z: .00527704507}
   m_Children:
   - {fileID: 664875571}
   - {fileID: 367860135}
@@ -1142,6 +1142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e4e3ce4d4a06045a493f734af8cdd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireTrapPrefab: {fileID: 11400000, guid: 011111d826dee2648a2f566f780e07ee, type: 2}
+  SpikesTrapPrefab: {fileID: 11400000, guid: 3c5c568ddcbbc5f44833699ab1b6da9b, type: 2}
   width: 10
   height: 10
   wall: {fileID: 100000, guid: d9b74abf730d5aa4ea2fd9708ca7334a, type: 2}

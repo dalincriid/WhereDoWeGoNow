@@ -4,6 +4,7 @@ using System.Collections;
 public class SpikesTrap : MonoBehaviour
 {
 	public float Interval = 2.0f;
+    public float MalusTime = 5.0f;
 
 	private float interval;
 
@@ -22,6 +23,7 @@ public class SpikesTrap : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            other.GetComponent<PlayerSync>().TouchedByTrap(MalusTime);
             Network.Destroy(gameObject);
         }
     }
