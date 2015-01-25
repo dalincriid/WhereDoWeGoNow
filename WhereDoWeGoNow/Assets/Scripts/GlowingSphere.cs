@@ -25,6 +25,11 @@ public class GlowingSphere : MonoBehaviour {
         transform.localScale = Vector3.Lerp(transform.localScale, v3Scale, Time.deltaTime * growingSpeed);
 		this.audioSource.minDistance = transform.localScale.x / 2.0f;
 		this.audioSource.maxDistance = this.audioSource.minDistance + 0.5f;
+
+        Color color = this.renderer.material.color;
+        color.a -= maxScale / 2000.0f;
+        this.renderer.material.color = color;
+
         if (transform.localScale.x > maxScale - 0.5f)
         {
             Destroy(gameObject);
