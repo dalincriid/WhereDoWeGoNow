@@ -8,7 +8,9 @@ public class Radar : MonoBehaviour
     [SerializeField]
     private float range = 0.0f;
     [SerializeField]
-    private float timeLaps = 0.0f;
+    private float fadeTimeLaps = 0.0f;
+    [SerializeField]
+    private float waitTimeLaps = 0.0f;
 
     private float timer = 0.0f;
     private float alpha = 0.0f;
@@ -80,11 +82,11 @@ public class Radar : MonoBehaviour
                 if (!this.Scan(other.transform.position))
                     return;
             this.inGame = false;
-            this.timer = this.timeLaps;
+            this.timer = this.fadeTimeLaps;
         }
         if (this.timer > 0.0f)
             this.EndGame();
-        else
+        else if ((this.waitTimeLaps -= Time.deltaTime) < 0.0f)
             Fade.LoadLevel("Credits", 2.0f, 2.0f, Color.black);
     }
 }
