@@ -54,7 +54,7 @@ public class Radar : MonoBehaviour
 
         Debug.DrawRay(this.transform.position, direction * this.range);
 
-        if (!Physics.Raycast(ray, out hit, this.range) || !hit.collider.gameObject != other)
+        if (!Physics.Raycast(ray, out hit, this.range) || hit.collider.gameObject != other)
             return false;
         return true;
     }
