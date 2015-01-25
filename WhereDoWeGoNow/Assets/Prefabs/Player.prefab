@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .907083511, z: .400000006}
+  m_LocalPosition: {x: 0, y: .907083511, z: .5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -753,7 +753,7 @@ CharacterController:
   m_GameObject: {fileID: 100004}
   serializedVersion: 2
   m_Height: 2
-  m_Radius: .400000006
+  m_Radius: 1
   m_SlopeLimit: 45
   m_StepOffset: .400000006
   m_SkinWidth: .0500000007
