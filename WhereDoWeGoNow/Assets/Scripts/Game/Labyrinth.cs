@@ -68,6 +68,7 @@ public class Labyrinth : MonoBehaviour
 
     private void PlaceTrap(int line, int column, int type)
     {
+        type -= 2;
         Vector3 scale = this.wall.transform.localScale;
         Vector3 position = new Vector3(line * scale.x, scale.y / 2, column * scale.z);
 
@@ -76,7 +77,7 @@ public class Labyrinth : MonoBehaviour
 
     private void MarkTrap(Vector2 location)
     {
-        this.maze[(int)location.x, (int)location.y] = this.random.Next(this.traps.Length);
+        this.maze[(int)location.x, (int)location.y] = 2 + this.random.Next(this.traps.Length);
     }
 
     private void DigRoom(Vector2 location, int breadth, int length, int horizontal, int vertical)
@@ -198,7 +199,7 @@ public class Labyrinth : MonoBehaviour
                 int index = this.maze[width, height];
                 if (index == 1)
                     this.PlaceWall(width, height);
-                else if (index != 0)
+                else if (index > 2)
                     this.PlaceTrap(width, height, index);
                 this.PlaceFloor(width, height);
             }
