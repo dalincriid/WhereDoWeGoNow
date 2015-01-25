@@ -47,7 +47,7 @@ namespace Menus
 
         abstract protected void Rewind();
 
-        
+
 
         private void DisplayTitle()
         {
@@ -80,7 +80,7 @@ namespace Menus
         {
         }
 
-        virtual protected void ManageInputs()
+        virtual public void ManageInputs()
         {
             if (Input.GetButtonDown("Accept"))
                 this.Execute();
@@ -98,11 +98,6 @@ namespace Menus
             this.button = 0;
             this.launcher = GameObject.FindGameObjectWithTag(Tags.launcher).GetComponent<Launcher>();
             this.manager = GameObject.FindGameObjectWithTag(Tags.manager).GetComponent<Manager.OverLord>();
-        }
-
-        void Update()
-        {
-            this.ManageInputs();
         }
 
         void OnGUI()

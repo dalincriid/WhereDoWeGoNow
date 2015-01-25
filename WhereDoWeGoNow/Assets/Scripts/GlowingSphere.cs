@@ -26,9 +26,15 @@ public class GlowingSphere : MonoBehaviour
 	void Update()
 	{
 		transform.localScale = Vector3.Lerp(transform.localScale, v3Scale, Time.deltaTime * growingSpeed);
+
+		Color color = this.renderer.material.color;
+		color.a -= maxScale / 2000.0f;
+		this.renderer.material.color = color;
+
 		if (transform.localScale.x > maxScale - 0.5f)
 		{
 			Destroy(gameObject);
 		}
+        
 	}
 }

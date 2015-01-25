@@ -60,21 +60,21 @@ namespace Menus
 
             this.datas["Resolution"] = resolution.width + " x " + resolution.height;
         }
-        
+
         private void Quality(int value)
         {
             this.quality = this.Clamp(this.quality + value, this.qualities.Length - 1);
 
             this.datas["Quality"] = this.qualities[this.quality];
         }
-        
+
         private void VerticalSynchronization(int value)
         {
             this.vSync = this.Clamp(this.vSync + value, this.synchronizations.Length - 1);
 
             this.datas["vSync"] = this.synchronizations[this.vSync];
         }
-        
+
         private void AntiAliasing(int value)
         {
             this.antiAliasing = this.Clamp(this.antiAliasing + value, this.aliasingFilters.Length - 1);
@@ -123,7 +123,7 @@ namespace Menus
 
         override protected void Rewind()
         {
-            this.launcher.stage = Launcher.Stage.OPTIONS;
+            this.launcher.MoveInto(Launcher.Stage.OPTIONS);
         }
 
         override protected void Display()
@@ -150,7 +150,7 @@ namespace Menus
             this.datas["AntiAliasing"] = "x " + this.aliasingFilters[this.antiAliasing].ToString();
         }
 
-        override protected void ManageInputs()
+        override public void ManageInputs()
         {
             base.ManageInputs();
             if (Input.GetButtonDown("Increase"))
@@ -168,7 +168,7 @@ namespace Menus
             this.aliasingFilters = new int[] { 0, 2, 4, 8 };
             this.synchronizations = new string[] { "Don't Sync", "Every VBlank", "Every Second VBlank" };
         }
-            
+
         void Start()
         {
             this.stage = Launcher.Stage.VIDEO;
