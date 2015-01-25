@@ -8,11 +8,14 @@ public class Radar : MonoBehaviour
     [SerializeField]
     private float range = 0.0f;
     [SerializeField]
-    private float timeLaps = 0.0f;
+    private float fadeTimeLaps = 0.0f;
+    [SerializeField]
+    private float waitTimeLaps = 0.0f;
 
     private float timer = 0.0f;
     private float alpha = 0.0f;
     private bool inGame = false;
+    private string beacon = null;
     private GUITexture curtain = null;
     private List<GameObject> partners = null;
     #endregion
@@ -64,24 +67,26 @@ public class Radar : MonoBehaviour
     void Start()
     {
         this.inGame = true;
+        this.beacon = "None";
         this.partners = new List<GameObject>();
         this.curtain.color = new Color(1, 1, 1, this.alpha);
-        this.FindOutOthers();
     }
 
     void Update()
     {
-        if (inGame)
+        if (this.beacon != this.tag && this.tag == "Player")
+            this.FindOutOthers();
+        if (this.tag == "Player" && inGame)
         {
             foreach (GameObject other in this.partners)
                 if (!this.Scan(other.transform.position))
                     return;
             this.inGame = false;
-            this.timer = this.timeLaps;
+            this.timer = this.fadeTimeLaps;
         }
         if (this.timer > 0.0f)
             this.EndGame();
-        else
+        else if ((this.waitTimeLaps -= Time.deltaTime) < 0.0f)
             Fade.LoadLevel("Credits", 2.0f, 2.0f, Color.black);
     }
 }
