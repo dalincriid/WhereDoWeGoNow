@@ -45,8 +45,8 @@ public class PlayerSync : MonoBehaviour
 
 	protected void Update()
 	{
-        //if (!networkView.isMine)
-        //    return ;
+        if (!networkView.isMine)
+            return ;
         if (m_malusTime > .0f)
         {
             m_malusTime -= Time.deltaTime;
